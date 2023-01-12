@@ -6,13 +6,19 @@
 }
 
 *::selection {
-  background-color: rgba(125, 125, 125, 0.5);
+  background-color: rgba(125, 125, 125, 0.502);
   color: #fff;
 }
 
 @font-face {
     font-family: Inter;
-    src: url('../font/Inter-Regular.ttf');
+    src: url('../font/Inter-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../font/Inter-SemiBold.ttf') format('truetype');
+  font-weight: bold;
 }
 
 html {
@@ -29,6 +35,10 @@ body {
     margin: auto;
 }
 
+
+.shadow-common {
+  box-shadow: 8px 8px 32px rgba(114, 114, 114, 0.1);
+}
 
 @media (max-width: 1440px) {
   html {
