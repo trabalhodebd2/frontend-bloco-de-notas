@@ -1,8 +1,8 @@
 * {
-    margin: 0;
-    border: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 *::selection {
@@ -11,8 +11,8 @@
 }
 
 @font-face {
-    font-family: Inter;
-    src: url('../font/Inter-Regular.ttf') format('truetype');
+  font-family: Inter;
+  src: url('../font/Inter-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -22,19 +22,18 @@
 }
 
 html {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 body {
-    font-family: Inter, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .container {
-    max-width: 90%;
-    width: 90%;
-    margin: auto;
+  max-width: 90%;
+  width: 90%;
+  margin: auto;
 }
-
 
 .shadow-common {
   box-shadow: 8px 8px 32px rgba(114, 114, 114, 0.1);

@@ -30,86 +30,34 @@
             </button>
         </section>
 
-        <main class="container flex flex-col gap-8 justify-between mt-12">
-            <article class="bg-primary p-9 shadow-primary rounded-lg">
-                <header class="flex justify-between align-center">
-                    <h1 class="text-xl">Título</h1>
-                    <div class="flex gap-4">
-                        <img
-                            src="img/trash.svg"
-                            alt="Deletar"
-                            class="h-6 cursor-pointer"
-                        />
-                        <img
-                            src="img/edit.svg"
-                            alt="Editar"
-                            class="h-6 cursor-pointer"
-                        />
-                    </div>
-                </header>
-                <p class="text-base mt-6">
-                    Lorem ipsum dolor sit amet consectetur. Praesent orci eget
-                    mauris ultrices. Donec quis morbi sit justo nec. Odio
-                    volutpat nullam commodo porttitor tortor congue sem turpis.
-                    Vestibulum nisl ut hendrerit auctor diam amet senectus.
-                    Facilisi natoque laoreet fringilla in. Dolor volutpat tellus
-                    sed pellentesque. Aliquam nulla viverra accumsan in et
-                    tincidunt ut cum amet.
-                </p>
-            </article>
+    <main id="notepads" class="container flex flex-col gap-8 justify-between mt-12"></main>
 
-            <article class="bg-primary p-9 shadow-primary rounded-lg">
-                <header class="flex justify-between align-center">
-                    <h1 class="text-xl">Título</h1>
-                    <div class="flex gap-4">
-                        <img
-                            src="img/trash.svg"
-                            alt="Deletar"
-                            class="h-6 cursor-pointer"
-                        />
-                        <img
-                            src="img/edit.svg"
-                            alt="Editar"
-                            class="h-6 cursor-pointer"
-                        />
-                    </div>
-                </header>
-                <p class="text-base mt-6">
-                    Lorem ipsum dolor sit amet consectetur. Praesent orci eget
-                    mauris ultrices. Donec quis morbi sit justo nec. Odio
-                    volutpat nullam commodo porttitor tortor congue sem turpis.
-                    Vestibulum nisl ut hendrerit auctor diam amet senectus.
-                    Facilisi natoque laoreet fringilla in. Dolor volutpat tellus
-                    sed pellentesque. Aliquam nulla viverra accumsan in et
-                    tincidunt ut cum amet.
-                </p>
-            </article>
-            <article class="bg-primary p-9 shadow-primary rounded-lg">
-                <header class="flex justify-between align-center">
-                    <h1 class="text-xl">Título</h1>
-                    <div class="flex gap-4">
-                        <img
-                            src="img/trash.svg"
-                            alt="Deletar"
-                            class="h-6 cursor-pointer"
-                        />
-                        <img
-                            src="img/edit.svg"
-                            alt="Editar"
-                            class="h-6 cursor-pointer"
-                        />
-                    </div>
-                </header>
-                <p class="text-base mt-6">
-                    Lorem ipsum dolor sit amet consectetur. Praesent orci eget
-                    mauris ultrices. Donec quis morbi sit justo nec. Odio
-                    volutpat nullam commodo porttitor tortor congue sem turpis.
-                    Vestibulum nisl ut hendrerit auctor diam amet senectus.
-                    Facilisi natoque laoreet fringilla in. Dolor volutpat tellus
-                    sed pellentesque. Aliquam nulla viverra accumsan in et
-                    tincidunt ut cum amet.
-                </p>
-            </article>
-        </main>
-    </body>
+    <div id="modal-edit" class="hidden opacity-0 bg-secondary fixed inset-0 h-screen
+      flex justify-center items-center opacity-100 transition-opacity">
+        <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
+            <div class="space-y-4">
+                <h1 class="text-xl">Título</h1>
+                <input type="text" id="editTitle" max="125" class="h-[3.125rem] w-full bg-primary px-4 rounded-lg">
+            </div>
+            <div class="space-y-4">
+                <h1 class="text-xl" max="525">Texto</h1>
+                <input type="text" id="editText" class="h-[3.125rem] w-full bg-primary px-4 rounded-lg">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-delete" class="hidden opacity-0 bg-secondary fixed inset-0 h-screen
+      flex justify-center items-center rou opacity-100 transition-opacity">
+        <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
+            <h1 class="text-xl">Deseja apagar mesmo?</h1>
+            <div class="flex gap-4">
+                <button id="button-delete" class="h-14 w-1/2 border-[3px] border-tertiary text-tertiary font-bold rounded-lg">Apagar</button>
+                <button id="button-cancel" class="h-14 w-1/2 bg-primary rounded-lg font-bold">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/script.js"></script>
+    <script src="js/modal.js"></script>
+</body>
 </html>
