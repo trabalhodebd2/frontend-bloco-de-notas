@@ -19,16 +19,11 @@ body {
 }
 
 .container {
-    max-width: 80rem;
+    max-width: 90%;
     width: 90%;
     margin: auto;
 }
 
-@media (min-width: 2560px) {
-  html {
-    font-size: 200%;
-  }
-}
 
 @media (max-width: 1440px) {
   html {
