@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+*::selection {
+  background-color: rgba(125, 125, 125, 0.5);
+  color: #fff;
+}
+
 @font-face {
     font-family: Inter;
     src: url('../font/Inter-Regular.ttf');
