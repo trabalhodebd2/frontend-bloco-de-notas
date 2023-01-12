@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style/main.css">
     <title>Document</title>
 </head>
-<body class="py-[3.75rem]">
+<body class="py-[3.75rem] relative">
     <section class="container flex justify-center">
         <label class="flex ">
             <img src="img/search.svg" placeholder="Pesquisar nota" class="mr-[-36px] z-10">
@@ -27,8 +27,8 @@
             <header class="flex justify-between align-center">
                 <h1 class="text-xl">Título</h1>
                 <div class="flex gap-4">
-                    <img src="img/trash.svg" alt="Deletar" class="h-6 cursor-pointer">
-                    <img src="img/edit.svg" alt="Editar" class="h-6 cursor-pointer">
+                    <img src="img/trash.svg" alt="Deletar" class="h-6 cursor-pointer delete">
+                    <img src="img/edit.svg" alt="Editar" class="h-6 cursor-pointer edit">
                 </div>
             </header>
             <p class="text-base mt-6">Lorem ipsum dolor sit amet consectetur. Praesent orci eget mauris ultrices. Donec quis morbi sit justo nec. Odio volutpat nullam commodo porttitor tortor congue sem turpis. Vestibulum nisl ut hendrerit auctor diam amet senectus. Facilisi natoque laoreet fringilla in. Dolor volutpat tellus sed pellentesque. Aliquam nulla viverra accumsan in et tincidunt ut cum amet.</p>
@@ -78,5 +78,14 @@
             <p class="text-base mt-6">Lorem ipsum dolor sit amet consectetur. Praesent orci eget mauris ultrices. Donec quis morbi sit justo nec. Odio volutpat nullam commodo porttitor tortor congue sem turpis. Vestibulum nisl ut hendrerit auctor diam amet senectus. Facilisi natoque laoreet fringilla in. Dolor volutpat tellus sed pellentesque. Aliquam nulla viverra accumsan in et tincidunt ut cum amet.</p>
         </article>
     </main>
+    
+    <div id="modal-edit" class="hidden opacity-0 bg-secondary fixed inset-0 h-screen
+      flex justify-center items-center opacity-100 transition-opacity">
+        <div>
+            <input type="text">
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
