@@ -24,7 +24,7 @@
                 />
             </label>
 
-            <button class="flex items-center bg-primary gap-4 rounded-lg p-4">
+            <button id="create-notepad" class="flex items-center bg-primary gap-4 rounded-lg p-4">
                 <img src="img/plus-circle.svg" class="z-10" />
                 <p class="bg-primary">Adicionar</p>
             </button>
@@ -37,11 +37,17 @@
         <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
             <div class="space-y-4">
                 <h1 class="text-xl">Título</h1>
-                <input type="text" id="editTitle" max="125" class="h-[3.125rem] w-full bg-primary px-4 rounded-lg">
+                <input 
+                    type="text" id="editTitle" max="125" 
+                    class="h-[3.125rem] w-full bg-primary px-4 rounded-lg"
+                />
             </div>
             <div class="space-y-4">
-                <h1 class="text-xl" max="525">Texto</h1>
-                <input type="text" id="editText" class="h-[3.125rem] w-full bg-primary px-4 rounded-lg">
+                <h1 class="text-xl">Texto</h1>
+                <input 
+                    type="text" id="editText" max="525" 
+                    class="h-[3.125rem] w-full bg-primary px-4 rounded-lg"
+                />
             </div>
         </div>
     </div>
@@ -51,13 +57,18 @@
         <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
             <h1 class="text-xl">Deseja apagar mesmo?</h1>
             <div class="flex gap-4">
-                <button id="button-delete" class="h-14 w-1/2 border-[3px] border-tertiary text-tertiary font-bold rounded-lg">Apagar</button>
-                <button id="button-cancel" class="h-14 w-1/2 bg-primary rounded-lg font-bold">Cancelar</button>
+                <button 
+                    id="button-delete" 
+                    class="h-14 w-1/2 border-[3px] border-tertiary text-tertiary font-bold rounded-lg"
+                >Apagar</button>
+                <button 
+                    id="button-cancel" 
+                    class="h-14 w-1/2 bg-primary rounded-lg font-bold"
+                >Cancelar</button>
             </div>
         </div>
     </div>
 
     <script type="module" src="js/script.js"></script>
-    <script src="js/modal.js"></script>
 </body>
 </html>
