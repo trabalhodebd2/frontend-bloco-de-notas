@@ -1,25 +1,18 @@
-import data from "./data.js"
+import {
+    getAllNotepads,
+    deleteNotepad
+} from "./crud.js"
+
+import {
+    createNotepad,
+    isStringEmpty,
+    modalController
+} from "./functions.js"
 
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
 
-let lastNotepad
-
-const modalController = (id, title = "", text = "") => {
-    const modal = document.querySelector(id)
-    modal.classList.toggle("hidden")
-    modal.classList.toggle("opacity-0")
-
-    const body = document.querySelector("body")
-    body.classList.toggle("overflow-hidden")
-
-    document.querySelector("#editTitle").value = title
-    document.querySelector("#editText").value = text
-}
-
-const isStringEmpty = (text) => {
-    return text.trim().length === 0;
-}
+let lastNotepad, reqType
 
 const controlEdit = () => {
     const title = document.querySelector("#editTitle").value
@@ -40,6 +33,7 @@ const controllerDelete = (event) => {
 
 const controllerEdit = (event) => {
     lastNotepad = event.path[3]
+    reqType = "PUT"
 
     const title = lastNotepad.querySelector(".title").innerText
     const text = lastNotepad.querySelector(".text").innerText
@@ -57,31 +51,6 @@ const remapEvents = () => {
     imgsEdit.forEach(img => {
         img.addEventListener("click", controllerEdit)
     })
-}
-
-const createNotepad = (id, title = '', text = '') => {
-    const element = `
-        <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common">
-            <header class="flex justify-between align-center">
-                <h1 class="text-xl title">${title}</h1>
-                <div class="flex gap-4">
-                    <img 
-                        src="img/trash.svg" 
-                        alt="Deletar" 
-                        class="h-6 cursor-pointer delete"
-                    />
-                    <img 
-                        src="img/edit.svg" 
-                        alt="Editar"
-                        class="h-6 cursor-pointer edit"
-                    />
-                </div>
-            </header>
-            <p class="text-base mt-6 text">${text}</p>
-        </article>
-    `
-
-    return element
 }
 
 document.querySelector(idEdit).addEventListener("click", event => {
@@ -103,6 +72,7 @@ document.querySelector(idDelete).addEventListener("click", event => {
         
         if (target === buttonDelete) {
             lastNotepad.remove()
+            deleteNotepad(lastNotepad.id)
         }
     }
     
@@ -113,20 +83,24 @@ document.querySelector(idDelete).addEventListener("click", event => {
 
 document.querySelector("#create-notepad").addEventListener("click", event => {
     modalController(idEdit)
-    const element = createNotepad(3)
+    reqType = "POST"
+    // const element = createNotepad(3)
 
-    document.querySelector("#notepads").innerHTML += element
-    lastNotepad = element
+    // document.querySelector("#notepads").innerHTML += element
+    // lastNotepad = element
 
     remapEvents()
 })
 
-const init = () => {
+const init = async () => {
     const notepads = document.querySelector("#notepads")
+    const data = await getAllNotepads()
+    
     for (const item of data) {
         const element = createNotepad(item.id, item.title, item.text)
         notepads.innerHTML += element
     }
+
     remapEvents()
 }
 
