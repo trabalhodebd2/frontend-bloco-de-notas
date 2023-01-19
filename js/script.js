@@ -1,10 +1,12 @@
 import {
     getAllNotepads,
-    deleteNotepad
+    createNotepad,
+    updateNotepad,
+    deleteNotepad,
 } from "./crud.js"
 
 import {
-    createNotepad,
+    createElementNotepad,
     isStringEmpty,
     modalController
 } from "./functions.js"
@@ -14,16 +16,30 @@ const idEdit = "#modal-edit"
 
 let lastNotepad, reqType
 
-const controlEdit = () => {
+const controlEdit = async () => {
     const title = document.querySelector("#editTitle").value
     const text = document.querySelector("#editText").value
 
     modalController(idEdit)
     
-    if (isStringEmpty(title) === true && isStringEmpty(text) === true) return;
+    if (isStringEmpty(title) === true && isStringEmpty(text) === true) return
 
-    lastNotepad.querySelector(".title").innerText = title
-    lastNotepad.querySelector(".text").innerText = text
+    if (reqType === "PUT") {
+        lastNotepad.querySelector(".title").innerText = title
+        lastNotepad.querySelector(".text").innerText = text
+
+        await updateNotepad(lastNotepad.id, {title, text})
+    } else if (reqType === "POST") {
+        const notepad = await createNotepad(title, text)
+        const elementText = createElementNotepad(
+            notepad.id, notepad.title, notepad.text
+        )
+
+        remapEvents()
+        
+        const parser = new DOMParser();
+        lastNotepad = parser.parseFromString(elementText, "text/html")
+    }
 }
 
 const controllerDelete = (event) => {
@@ -84,21 +100,13 @@ document.querySelector(idDelete).addEventListener("click", event => {
 document.querySelector("#create-notepad").addEventListener("click", event => {
     modalController(idEdit)
     reqType = "POST"
-    // const element = createNotepad(3)
-
-    // document.querySelector("#notepads").innerHTML += element
-    // lastNotepad = element
-
-    remapEvents()
 })
 
 const init = async () => {
-    const notepads = document.querySelector("#notepads")
     const data = await getAllNotepads()
     
     for (const item of data) {
-        const element = createNotepad(item.id, item.title, item.text)
-        notepads.innerHTML += element
+        const element = createElementNotepad(item.id, item.title, item.text)
     }
 
     remapEvents()

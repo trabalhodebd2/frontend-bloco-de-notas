@@ -2,7 +2,7 @@ const isStringEmpty = (text) => {
     return text.trim().length === 0;
 }
 
-const createNotepad = (id, title = '', text = '') => {
+const createElementNotepad = (id, title = '', text = '') => {
     const element = `
         <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common">
             <header class="flex justify-between align-center">
@@ -24,6 +24,9 @@ const createNotepad = (id, title = '', text = '') => {
         </article>
     `
 
+    const notepads = document.querySelector("#notepads")
+    notepads.innerHTML += element
+
     return element
 }
 
@@ -39,4 +42,4 @@ const modalController = (id, title = "", text = "") => {
     document.querySelector("#editText").value = text
 }
 
-export { createNotepad, isStringEmpty, modalController }
+export { createElementNotepad, isStringEmpty, modalController }
