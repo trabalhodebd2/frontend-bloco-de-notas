@@ -9,31 +9,34 @@
         <link rel="stylesheet" href="style/main.css" />
         <title>Document</title>
     </head>
-    <body class="py-[3.75rem]">
-        <section class="container flex justify-center space-x-2">
-            <label class="flex bg-primary rounded-lg gap-2 p-4">
+    <body class="p-[3.75rem]">
+        <section class="container flex flex-col-reverse sm:flex-row justify-center gap-8">
+            <label class="flex bg-primary rounded-lg gap-2 min-w-[3.5rem] min-h-[3.5rem] 
+                    p-[1.125rem] cursor-text shadow-common w-full sm:w-[25rem]">
                 <img
                     src="img/search.svg"
                     placeholder="Pesquisar nota"
-                    class="z-10"
+                    class="h-7 md:h-6 cursor-pointer"
                 />
                 <input
                     type="text"
-                    class="bg-primary pl-2"
                     placeholder="Pesquisar nota"
+                    class="bg-primary outline-0 pl-2 placeholder:text-secondary"
                 />
             </label>
 
-            <button id="create-notepad" class="flex items-center bg-primary gap-4 rounded-lg p-4">
-                <img src="img/plus-circle.svg" class="z-10" />
+            <button id="create-notepad" class="flex items-center bg-primary min-w-[3.5rem] 
+                    gap-4 rounded-lg text-secondary p-[1.125rem] min-h-[3.5rem]
+                    shadow-common w-full sm:w-[25rem]">
+                <img src="img/plus-circle.svg" class="w-7 md:w-auto" />
                 <p class="bg-primary">Adicionar</p>
             </button>
         </section>
 
-    <main id="notepads" class="container flex flex-col gap-8 justify-between mt-12"></main>
+    <main id="notepads" class="container flex flex-col justify-between items-center gap-8 mt-12"></main>
 
     <div id="modal-edit" class="hidden opacity-0 bg-secondary fixed inset-0 h-screen
-      flex justify-center items-center opacity-100 transition-opacity">
+            flex justify-center items-center opacity-100 transition-opacity">
         <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
             <div class="space-y-4">
                 <h1 class="text-xl">Título</h1>
@@ -53,7 +56,7 @@
     </div>
 
     <div id="modal-delete" class="hidden opacity-0 bg-secondary fixed inset-0 h-screen
-      flex justify-center items-center rou opacity-100 transition-opacity">
+            flex justify-center items-center rou opacity-100 transition-opacity">
         <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
             <h1 class="text-xl">Deseja apagar mesmo?</h1>
             <div class="flex gap-4">

@@ -61,7 +61,7 @@ const remapEvents = () => {
 
 const createNotepad = (id, title = '', text = '') => {
     const element = `
-        <article id=${id} class="bg-primary p-9 rounded-lg shadow-common">
+        <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common">
             <header class="flex justify-between align-center">
                 <h1 class="text-xl title">${title}</h1>
                 <div class="flex gap-4">
@@ -72,7 +72,7 @@ const createNotepad = (id, title = '', text = '') => {
                     />
                     <img 
                         src="img/edit.svg" 
-                        alt="Editar" 
+                        alt="Editar"
                         class="h-6 cursor-pointer edit"
                     />
                 </div>
