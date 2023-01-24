@@ -1,4 +1,4 @@
-const urlApi = "http://localhost:8000/notepad"
+const urlApi = "http://localhost:8000/annotations"
 
 const getAllNotepads = async () => {
     try {
@@ -9,13 +9,13 @@ const getAllNotepads = async () => {
     }
 }
 
-const createNotepad = async (title, text) => {
+const createNotepad = async (title, content) => {
     const config = {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-        body: JSON.stringify({ title, text })
+        body: JSON.stringify({ title, content })
 	};
 
     try {
@@ -28,7 +28,7 @@ const createNotepad = async (title, text) => {
 
 const updateNotepad = async (id, update) => {
     const config = {
-		method: "PUT",
+		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
 		},

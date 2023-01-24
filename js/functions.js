@@ -1,12 +1,12 @@
-const isStringEmpty = (text) => {
-    return text.trim().length === 0;
+const isStringEmpty = (content) => {
+    return content.trim().length === 0;
 }
 
-const createElementNotepad = (id, title = '', text = '') => {
+const createElementNotepad = (id, title = '', content = '') => {
     const element = `
         <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common">
             <header class="flex justify-between align-center">
-                <h1 class="text-xl title">${title}</h1>
+                <h1 class="content-xl title">${title}</h1>
                 <div class="flex gap-4">
                     <img 
                         src="img/trash.svg" 
@@ -20,7 +20,7 @@ const createElementNotepad = (id, title = '', text = '') => {
                     />
                 </div>
             </header>
-            <p class="text-base mt-6 text">${text}</p>
+            <p class="text-base mt-6 content">${content}</p>
         </article>
     `
 
@@ -30,7 +30,7 @@ const createElementNotepad = (id, title = '', text = '') => {
     return element
 }
 
-const modalController = (id, title = "", text = "") => {
+const modalController = (id, title = "", content = "") => {
     const modal = document.querySelector(id)
     modal.classList.toggle("hidden")
     modal.classList.toggle("opacity-0")
@@ -39,7 +39,7 @@ const modalController = (id, title = "", text = "") => {
     body.classList.toggle("overflow-hidden")
 
     document.querySelector("#editTitle").value = title
-    document.querySelector("#editText").value = text
+    document.querySelector("#editContent").value = content
 }
 
 export { createElementNotepad, isStringEmpty, modalController }

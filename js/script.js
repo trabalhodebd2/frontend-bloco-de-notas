@@ -16,45 +16,51 @@ const idEdit = "#modal-edit"
 
 let lastNotepad, reqType
 
+const updateElementNotepad = (imgCurrent) => {
+    lastNotepad = imgCurrent
+    for (let cont = 0; cont < 3; cont++) 
+        lastNotepad = lastNotepad.parentNode
+}
+
 const controlEdit = async () => {
     const title = document.querySelector("#editTitle").value
-    const text = document.querySelector("#editText").value
+    const content = document.querySelector("#editContent").value
 
     modalController(idEdit)
     
-    if (isStringEmpty(title) === true && isStringEmpty(text) === true) return
+    if (isStringEmpty(title) === true && isStringEmpty(content) === true) return
 
-    if (reqType === "PUT") {
+    if (reqType === "PATCH") {
         lastNotepad.querySelector(".title").innerText = title
-        lastNotepad.querySelector(".text").innerText = text
+        lastNotepad.querySelector(".content").innerText = content
 
-        await updateNotepad(lastNotepad.id, {title, text})
+        await updateNotepad(lastNotepad.id, {title, content})
     } else if (reqType === "POST") {
-        const notepad = await createNotepad(title, text)
-        const elementText = createElementNotepad(
-            notepad.id, notepad.title, notepad.text
+        const notepad = await createNotepad(title, content)
+        const elementContent = createElementNotepad(
+            notepad._id, notepad.title, notepad.content
         )
 
         remapEvents()
         
         const parser = new DOMParser();
-        lastNotepad = parser.parseFromString(elementText, "text/html")
+        lastNotepad = parser.parseFromString(elementContent, "text/html")
     }
 }
 
 const controllerDelete = (event) => {
     modalController(idDelete)
-    lastNotepad = event.path[3]
+    updateElementNotepad(event.target)
 }
 
 const controllerEdit = (event) => {
-    lastNotepad = event.path[3]
-    reqType = "PUT"
+    updateElementNotepad(event.target)
+    reqType = "PATCH"
 
     const title = lastNotepad.querySelector(".title").innerText
-    const text = lastNotepad.querySelector(".text").innerText
+    const content = lastNotepad.querySelector(".content").innerText
 
-    modalController(idEdit, title, text)
+    modalController(idEdit, title, content)
 }
 
 const remapEvents = () => {
@@ -106,7 +112,7 @@ const init = async () => {
     const data = await getAllNotepads()
     
     for (const item of data) {
-        const element = createElementNotepad(item.id, item.title, item.text)
+        await createElementNotepad(item._id, item.title, item.content)
     }
 
     remapEvents()
