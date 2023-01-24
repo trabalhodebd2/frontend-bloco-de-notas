@@ -12,7 +12,8 @@
     <body class="p-[3.75rem]">
         <section class="container flex flex-col-reverse sm:flex-row justify-center gap-8">
             <label class="flex bg-primary rounded-lg gap-2 min-w-[3.5rem] min-h-[3.5rem] 
-                    p-[1.125rem] cursor-text shadow-common w-full sm:w-[25rem]">
+                    p-[1.125rem] cursor-text shadow-common w-full sm:w-[25rem]
+                    border border-solid border-[#e7e7e7]">
                 <img
                     src="img/search.svg"
                     placeholder="Pesquisar nota"
@@ -27,7 +28,7 @@
 
             <button id="create-notepad" class="flex items-center bg-primary min-w-[3.5rem] 
                     gap-4 rounded-lg text-secondary p-[1.125rem] min-h-[3.5rem]
-                    shadow-common w-full sm:w-[25rem]">
+                    shadow-common w-full sm:w-[25rem] border border-solid border-[#e7e7e7]">
                 <img src="img/plus-circle.svg" class="w-7 md:w-auto" />
                 <p class="bg-primary">Adicionar</p>
             </button>
@@ -52,6 +53,17 @@
                     class="h-[3.125rem] w-full bg-primary px-4 rounded-lg"
                 />
             </div>
+
+            <div class="flex gap-4">
+                <button 
+                    id="button-cancel-update" 
+                    class="h-14 w-1/2 rounded-lg font-bold border-[3px] border-secondary text-secondary"
+                >Cancelar</button>
+                <button 
+                    id="button-update" 
+                    class="h-14 w-1/2 rounded-lg font-bold bg-tertiary text-white"
+                >Enviar</button>
+            </div>
         </div>
     </div>
 
@@ -61,13 +73,13 @@
             <h1 class="text-xl">Deseja apagar mesmo?</h1>
             <div class="flex gap-4">
                 <button 
-                    id="button-delete" 
-                    class="h-14 w-1/2 border-[3px] border-tertiary text-tertiary font-bold rounded-lg"
-                >Apagar</button>
-                <button 
-                    id="button-cancel" 
-                    class="h-14 w-1/2 bg-primary rounded-lg font-bold"
+                id="button-cancel" 
+                class="h-14 w-1/2 rounded-lg font-bold border-[3px] border-secondary text-secondary"
                 >Cancelar</button>
+                <button 
+                    id="button-delete" 
+                    class="h-14 w-1/2 rounded-lg font-bold bg-tertiary text-white"
+                >Apagar</button>
             </div>
         </div>
     </div>

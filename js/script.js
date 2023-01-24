@@ -77,6 +77,8 @@ const remapEvents = () => {
 
 document.querySelector(idEdit).addEventListener("click", event => {
     if (event.target !== event.currentTarget) return;
+    const buttonCreate = document.querySelector("#button-cancel-update")
+    const buttonDelete = document.querySelector("#button-update")
     controlEdit()
 })
 

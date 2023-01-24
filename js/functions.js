@@ -4,7 +4,8 @@ const isStringEmpty = (content) => {
 
 const createElementNotepad = (id, title = '', content = '') => {
     const element = `
-        <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common">
+        <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common
+                border border-solid border-[#e7e7e7]">
             <header class="flex justify-between align-center">
                 <h1 class="content-xl title">${title}</h1>
                 <div class="flex gap-4">
