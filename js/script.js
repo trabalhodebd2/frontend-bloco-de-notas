@@ -16,54 +16,46 @@ const idEdit = "#modal-edit"
 
 let lastNotepad, reqType
 
+// Controller do ultimo bloco de notas usado
+
 const updateElementNotepad = (imgCurrent) => {
     lastNotepad = imgCurrent
     for (let cont = 0; cont < 3; cont++) 
         lastNotepad = lastNotepad.parentNode
 }
 
-const controlEdit = async () => {
-    const title = document.querySelector("#editTitle").value
-    const content = document.querySelector("#editContent").value
-
-    modalController(idEdit)
-    
-    if (isStringEmpty(title) === true && isStringEmpty(content) === true) return
-
-    if (reqType === "PATCH") {
-        lastNotepad.querySelector(".title").innerText = title
-        lastNotepad.querySelector(".content").innerText = content
-
-        await updateNotepad(lastNotepad.id, {title, content})
-    } else if (reqType === "POST") {
-        const notepad = await createNotepad(title, content)
-        const elementContent = createElementNotepad(
-            notepad._id, notepad.title, notepad.content
-        )
-
-        remapEvents()
-        
-        const parser = new DOMParser();
-        lastNotepad = parser.parseFromString(elementContent, "text/html")
-    }
-}
-
-const controllerDelete = (event) => {
-    modalController(idDelete)
-    updateElementNotepad(event.target)
-}
-
-const controllerEdit = (event) => {
-    updateElementNotepad(event.target)
-    reqType = "PATCH"
+const getTitleAndContent = () => {
+    if (!lastNotepad) return {title: "", content: ""}
 
     const title = lastNotepad.querySelector(".title").innerText
     const content = lastNotepad.querySelector(".content").innerText
 
-    modalController(idEdit, title, content)
+    return { title, content }
 }
 
+const setTitleAndContent = (title, content) => {
+    if (lastNotepad) {
+        lastNotepad.querySelector(".title").innerText = title
+        lastNotepad.querySelector(".content").innerText = content
+    }
+}
+
+// Remapear eventos das imgs de edit e delet
+
 const remapEvents = () => {
+    const controllerDelete = (event) => {
+        modalController(idDelete)
+        updateElementNotepad(event.target)
+    }
+    
+    const controllerEdit = (event) => {
+        updateElementNotepad(event.target)    
+        reqType = "PATCH"
+
+        const { title, content } = getTitleAndContent()
+        modalController(idEdit, title, content)
+    }
+    
     const imgsDelete = document.querySelectorAll(".delete")
     imgsDelete.forEach(img => {
         img.addEventListener("click", controllerDelete)
@@ -75,43 +67,80 @@ const remapEvents = () => {
     })
 }
 
-document.querySelector(idEdit).addEventListener("click", event => {
-    if (event.target !== event.currentTarget) return;
-    const buttonCreate = document.querySelector("#button-cancel-update")
-    const buttonDelete = document.querySelector("#button-update")
-    controlEdit()
-})
+// Controller de submeter formularios
 
-document.querySelector(idEdit).addEventListener("keyup", event => {
-    if (event.key === "Enter") controlEdit()
+const controllFormEdit = async () => {
+    const { title, content } = getTitleAndContent()
+
+    modalController(idEdit)
+
+    if (reqType === "PATCH") {    
+        if (isStringEmpty(title) === true && isStringEmpty(content) === true) 
+            return null
+        
+        setTitleAndContent(title, content)
+
+        await updateNotepad(lastNotepad.id, {title, content})
+    } else if (reqType === "POST") {
+        const notepad = await createNotepad(title, content)
+
+        const elementContent = createElementNotepad(
+            notepad._id, notepad.title, notepad.content
+        )
+
+        remapEvents()
+        
+        const parser = new DOMParser()
+        lastNotepad = parser.parseFromString(elementContent, "text/html")
+    }
+}
+
+// Contoler se está apertando dentro ou fora do modal
+
+document.querySelector(idEdit).addEventListener("click", event => {
+    if (event.target !== event.currentTarget) return null
+    modalController(idEdit)
 })
 
 document.querySelector(idDelete).addEventListener("click", event => {
-    const buttonCancel = document.querySelector("#button-cancel")
-    const buttonDelete = document.querySelector("#button-delete")
-    const target = event.target
-
-    if (target === buttonCancel || target === buttonDelete) {
-        modalController(idDelete)
-        
-        if (target === buttonDelete) {
-            lastNotepad.remove()
-            deleteNotepad(lastNotepad.id)
-        }
-    }
-    
-    if (event.target !== event.currentTarget) return;
-    
+    if (event.target !== event.currentTarget) return null
     modalController(idDelete)
 })
+
+// Contoler ao apertar no botão de submeter formulario
+
+document.querySelector(idEdit).addEventListener("submit", event => {
+    event.preventDefault()
+    controllFormEdit()
+})
+
+document.querySelector(idDelete).addEventListener("submit", event => {
+    event.preventDefault()
+    modalController(idDelete)
+
+    lastNotepad.remove()
+    deleteNotepad(lastNotepad.id)
+})
+
+// Apertar para criar notepad
 
 document.querySelector("#create-notepad").addEventListener("click", event => {
     modalController(idEdit)
     reqType = "POST"
 })
 
+// Evento de fechar modal controller com botões de cancelar
+
+const buttonCancelInDelete = document.querySelector("#cancel-delete")
+buttonCancelInDelete.addEventListener("click", () => modalController(idDelete))
+
+const buttonCancelInEdit = document.querySelector("#cancel-edit")
+buttonCancelInEdit.addEventListener("click", () => modalController(idEdit))
+
+// Inicializador, carrega os bloco de notas atuais
+
 const init = async () => {
-    const data = await getAllNotepads()
+    const data = await getAllNotepads() || []
     
     for (const item of data) {
         await createElementNotepad(item._id, item.title, item.content)
