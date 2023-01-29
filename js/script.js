@@ -95,16 +95,22 @@ const controllFormEdit = async () => {
     }
 }
 
-// Contoler se está apertando dentro ou fora do modal
+// Contoler de eventos para fechar modal
 
-document.querySelector(idEdit).addEventListener("click", event => {
-    if (event.target !== event.currentTarget) return null
-    modalController(idEdit)
+const listIdModal = [idEdit, idDelete]
+
+listIdModal.forEach(idModal => {
+    const modal = document.querySelector(idModal)
+    modal.addEventListener("click", event => {
+        if (event.target !== event.currentTarget) return null
+        modalController(idModal)
+    })
 })
 
-document.querySelector(idDelete).addEventListener("click", event => {
-    if (event.target !== event.currentTarget) return null
-    modalController(idDelete)
+listIdModal.forEach(idModal => {
+    const modal = document.querySelector(idModal)
+    const buttonCancel = modal.querySelector(".cancel")
+    buttonCancel.addEventListener("click", () => modalController(idModal))
 })
 
 // Contoler ao apertar no botão de submeter formulario
@@ -128,14 +134,6 @@ document.querySelector("#create-notepad").addEventListener("click", event => {
     modalController(idEdit)
     reqType = "POST"
 })
-
-// Evento de fechar modal controller com botões de cancelar
-
-const buttonCancelInDelete = document.querySelector("#cancel-delete")
-buttonCancelInDelete.addEventListener("click", () => modalController(idDelete))
-
-const buttonCancelInEdit = document.querySelector("#cancel-edit")
-buttonCancelInEdit.addEventListener("click", () => modalController(idEdit))
 
 // Inicializador, carrega os bloco de notas atuais
 
