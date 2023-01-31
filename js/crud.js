@@ -53,5 +53,13 @@ const deleteNotepad = async (id) => {
     }
 }
 
+const searchNotepads = async (query) => {
+    try {
+        const response = await fetch(`${urlApi}/search/${query}`)
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 
-export { getAllNotepads, createNotepad, updateNotepad, deleteNotepad }
+export { getAllNotepads, createNotepad, updateNotepad, deleteNotepad, searchNotepads }

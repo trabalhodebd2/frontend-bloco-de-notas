@@ -3,6 +3,7 @@ import {
     createNotepad,
     updateNotepad,
     deleteNotepad,
+    searchNotepads
 } from "./crud.js"
 
 import {
@@ -24,9 +25,13 @@ const updateElementNotepad = (imgCurrent) => {
         lastNotepad = lastNotepad.parentNode
 }
 
-const getTitleAndContent = () => {
-    if (!lastNotepad) return {title: "", content: ""}
+const getTitleAndContentModal = () => {
+    const title = document.querySelector("#editTitle").value
+    const content = document.querySelector("#editContent").value
+    return { title, content }
+}
 
+const getTitleAndContent = () => {
     const title = lastNotepad.querySelector(".title").innerText
     const content = lastNotepad.querySelector(".content").innerText
 
@@ -70,19 +75,22 @@ const remapEvents = () => {
 // Controller de submeter formularios
 
 const controllFormEdit = async () => {
-    const { title, content } = getTitleAndContent()
+    const { title, content } = getTitleAndContentModal()
 
     modalController(idEdit)
-
-    if (reqType === "PATCH") {    
+    
+    if (reqType === "PATCH") {
         if (isStringEmpty(title) === true && isStringEmpty(content) === true) 
             return null
         
+        console.log(title)
+        console.log(lastNotepad)
         setTitleAndContent(title, content)
 
         await updateNotepad(lastNotepad.id, {title, content})
     } else if (reqType === "POST") {
         const notepad = await createNotepad(title, content)
+        console.log(notepad)
 
         const elementContent = createElementNotepad(
             notepad._id, notepad.title, notepad.content
@@ -118,6 +126,9 @@ listIdModal.forEach(idModal => {
 document.querySelector(idEdit).addEventListener("submit", event => {
     event.preventDefault()
     controllFormEdit()
+
+    clearSearch()
+    init(true)
 })
 
 document.querySelector(idDelete).addEventListener("submit", event => {
@@ -126,6 +137,8 @@ document.querySelector(idDelete).addEventListener("submit", event => {
 
     lastNotepad.remove()
     deleteNotepad(lastNotepad.id)
+
+    clearSearch()
 })
 
 // Apertar para criar notepad
@@ -135,16 +148,40 @@ document.querySelector("#create-notepad").addEventListener("click", event => {
     reqType = "POST"
 })
 
-// Inicializador, carrega os bloco de notas atuais
+// Evento ao Pesquisar
 
-const init = async () => {
-    const data = await getAllNotepads() || []
-    
-    for (const item of data) {
-        await createElementNotepad(item._id, item.title, item.content)
+const reloadElementsInPage = async (data, erasedCurrent = false) => {
+    if (erasedCurrent) {
+        const notepads = document.querySelector("#notepads")
+        notepads.innerHTML = ""
     }
 
+    for (const item of data)
+        await createElementNotepad(item._id, item.title, item.content)
+
     remapEvents()
+}
+
+const inputSearch = document.querySelector("#input-search")
+inputSearch.addEventListener("keydown", async (event) => {
+    if (event.key === "Enter") {
+        const query = inputSearch.value
+        let data
+
+        if (query === "") data = await getAllNotepads()
+        else data = await searchNotepads(query)
+
+        await reloadElementsInPage(data, true)
+    }
+})
+
+const clearSearch = () => inputSearch.value = ""
+
+// Inicializador, carrega os blocos de notas atuais
+
+const init = async (erasedCurrent = false) => {
+    const data = await getAllNotepads() || []
+    reloadElementsInPage(data, erasedCurrent)
 }
 
 init()

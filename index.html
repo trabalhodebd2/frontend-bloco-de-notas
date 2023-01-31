@@ -21,6 +21,7 @@
                 />
                 <input
                     type="text"
+                    id="input-search"
                     placeholder="Pesquisar nota"
                     class="bg-primary outline-0 pl-2 placeholder:text-secondary"
                 />
@@ -42,14 +43,14 @@
             <div class="space-y-4">
                 <h1 class="text-xl">Título</h1>
                 <input 
-                    type="text" id="editTitle" max="125" 
+                    type="text" id="editTitle" max="125" required
                     class="h-[3.125rem] w-full bg-primary px-4 rounded-lg"
                 />
             </div>
             <div class="space-y-4">
                 <h1 class="text-xl">Texto</h1>
                 <input 
-                    type="text" id="editContent" max="525" 
+                    type="text" id="editContent" max="525" required
                     class="h-[3.125rem] w-full bg-primary px-4 rounded-lg"
                 />
             </div>
@@ -72,10 +73,10 @@
         <div class="shadow-common w-[40rem] bg-white py-10 px-10 space-y-9 rounded-lg">
             <h1 class="text-xl">Deseja apagar mesmo?</h1>
             <div class="flex gap-4">
-                <button 
+                <a 
                     class="h-14 w-1/2 rounded-lg font-bold border-[3px] border-secondary 
                     flex justify-center items-center text-secondary cursor-pointer cancel"
-                >Cancelar</button>
+                >Cancelar</a>
                 <button 
                     id="button-delete" 
                     class="h-14 w-1/2 rounded-lg font-bold bg-tertiary text-white"
