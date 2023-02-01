@@ -3,6 +3,9 @@ import reqType from "../controller/reqType.js"
 
 import modalController from "./modalController.js"
 
+const idDelete = "#modal-delete"
+const idEdit = "#modal-edit"
+
 const remapEvents = () => {
     const controllerDelete = (event) => {
         modalController(idDelete)
