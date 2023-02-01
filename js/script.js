@@ -4,15 +4,12 @@ import reqType from "./controller/reqType.js"
 import createElementNotepad from "./services/createElementNotepad.js"
 import remapEvents from "./services/remapEvents.js"
 
+import controllFormCreateOrEdit from "./services/createOrEditAnnotation.js"
 import reloadCancelModal from "./services/modals/reloadCancelModal.js"
-import modalController, {
-    getTitleAndContentModal
-} from "./services/modals/modalController.js"
+import modalController from "./services/modals/modalController.js"
 
 import {
     getAllNotepads,
-    createNotepad,
-    updateNotepad,
     deleteNotepad,
     searchNotepads
 } from "./crud.js"
@@ -20,37 +17,11 @@ import {
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
 
-// Controller de submeter formularios
-
-const controllFormEdit = async () => {
-    const { title, content } = getTitleAndContentModal()
-
-    modalController(idEdit)
-    
-    if (reqType.get() === "PATCH") {
-        lastNotepad.setTitleAndContent(title, content)
-
-        await updateNotepad(lastNotepad.getId(), {title, content})
-    } else if (reqType.get() === "POST") {
-        const notepad = await createNotepad(title, content)
-
-        const elementContent = createElementNotepad(
-            notepad._id, notepad.title, notepad.content
-        )
-
-        remapEvents()
-        
-        const parser = new DOMParser()
-        lastNotepad.set(parser.parseFromString(elementContent, "text/html"))
-    }
-}
-
-
 // Contoler ao apertar no botão de submeter formulario
 
 document.querySelector(idEdit).addEventListener("submit", event => {
     event.preventDefault()
-    controllFormEdit()
+    controllFormCreateOrEdit()
 
     clearSearch()
 })
@@ -65,9 +36,8 @@ document.querySelector(idDelete).addEventListener("submit", event => {
     clearSearch()
 })
 
-// Apertar para criar notepad
-
-document.querySelector("#create-notepad").addEventListener("click", event => {
+const buttonCreateNotepad = document.querySelector("#create-notepad")
+buttonCreateNotepad.addEventListener("click", event => {
     modalController(idEdit)
     reqType.set("POST")
 })

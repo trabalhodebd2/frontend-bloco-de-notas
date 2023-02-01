@@ -6,20 +6,20 @@ import modalController from "./modals/modalController.js"
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
 
-const remapEvents = () => {
-    const controllerDelete = (event) => {
-        modalController(idDelete)
-        lastNotepad.updateElementNotepad(event.target)
-    }
-    
-    const controllerEdit = (event) => {
-        lastNotepad.updateElementNotepad(event.target)    
-        reqType.set("PATCH")
+const controllerDelete = (event) => {
+    modalController(idDelete)
+    lastNotepad.updateElementNotepad(event.target)
+}
 
-        const { title, content } = lastNotepad.getTitleAndContent()
-        modalController(idEdit, title, content)
-    }
-    
+const controllerEdit = (event) => {
+    lastNotepad.updateElementNotepad(event.target)    
+    reqType.set("PATCH")
+
+    const { title, content } = lastNotepad.getTitleAndContent()
+    modalController(idEdit, title, content)
+}
+
+const remapEvents = () => {
     const imgsDelete = document.querySelectorAll(".delete")
     imgsDelete.forEach(img => {
         img.addEventListener("click", controllerDelete)
