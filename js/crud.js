@@ -55,7 +55,7 @@ const deleteNotepad = async (id) => {
 
 const searchNotepads = async (query) => {
     try {
-        const response = await fetch(`${urlApi}/search/${query}`)
+        const response = await fetch(`${urlApi}?query=${query}`)
         return await response.json()
     } catch (err) {
         console.log(err)

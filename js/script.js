@@ -1,3 +1,5 @@
+import lastNotepad from "./controller/lastNotepad.js"
+
 import {
     getAllNotepads,
     createNotepad,
@@ -15,15 +17,9 @@ import {
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
 
-let lastNotepad, reqType
+let reqType
 
 // Controller do ultimo bloco de notas usado
-
-const updateElementNotepad = (imgCurrent) => {
-    lastNotepad = imgCurrent
-    for (let cont = 0; cont < 3; cont++) 
-        lastNotepad = lastNotepad.parentNode
-}
 
 const getTitleAndContentModal = () => {
     const title = document.querySelector("#editTitle").value
@@ -31,33 +27,19 @@ const getTitleAndContentModal = () => {
     return { title, content }
 }
 
-const getTitleAndContent = () => {
-    const title = lastNotepad.querySelector(".title").innerText
-    const content = lastNotepad.querySelector(".content").innerText
-
-    return { title, content }
-}
-
-const setTitleAndContent = (title, content) => {
-    if (lastNotepad) {
-        lastNotepad.querySelector(".title").innerText = title
-        lastNotepad.querySelector(".content").innerText = content
-    }
-}
-
 // Remapear eventos das imgs de edit e delet
 
 const remapEvents = () => {
     const controllerDelete = (event) => {
         modalController(idDelete)
-        updateElementNotepad(event.target)
+        lastNotepad.updateElementNotepad(event.target)
     }
     
     const controllerEdit = (event) => {
-        updateElementNotepad(event.target)    
+        lastNotepad.updateElementNotepad(event.target)    
         reqType = "PATCH"
 
-        const { title, content } = getTitleAndContent()
+        const { title, content } = lastNotepad.getTitleAndContent()
         modalController(idEdit, title, content)
     }
     
@@ -83,11 +65,9 @@ const controllFormEdit = async () => {
         if (isStringEmpty(title) === true && isStringEmpty(content) === true) 
             return null
         
-        console.log(title)
-        console.log(lastNotepad)
-        setTitleAndContent(title, content)
+        lastNotepad.setTitleAndContent(title, content)
 
-        await updateNotepad(lastNotepad.id, {title, content})
+        await updateNotepad(lastNotepad.getId(), {title, content})
     } else if (reqType === "POST") {
         const notepad = await createNotepad(title, content)
         console.log(notepad)
@@ -99,7 +79,7 @@ const controllFormEdit = async () => {
         remapEvents()
         
         const parser = new DOMParser()
-        lastNotepad = parser.parseFromString(elementContent, "text/html")
+        lastNotepad.set(parser.parseFromString(elementContent, "text/html"))
     }
 }
 
@@ -135,8 +115,8 @@ document.querySelector(idDelete).addEventListener("submit", event => {
     event.preventDefault()
     modalController(idDelete)
 
-    lastNotepad.remove()
-    deleteNotepad(lastNotepad.id)
+    lastNotepad.removeElementAnnotation()
+    deleteNotepad(lastNotepad.getId())
 
     clearSearch()
 })
