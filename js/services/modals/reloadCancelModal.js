@@ -1,5 +1,7 @@
 import modalController from "./modalController.js"
 
+import { idEdit, idDelete } from "../getIdModals.js"
+
 const reloadCancelWhitClick = (listIdModal) => {
     listIdModal.forEach(idModal => {
         const modal = document.querySelector(idModal)
@@ -19,9 +21,6 @@ const reloadCancelWhitButton = (listIdModal) => {
 }
 
 const reloadCancelModal = () => {
-    const idDelete = "#modal-delete"
-    const idEdit = "#modal-edit"
-    
     const listIdModal = [idEdit, idDelete]
 
     reloadCancelWhitClick(listIdModal)

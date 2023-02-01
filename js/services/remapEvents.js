@@ -3,8 +3,7 @@ import reqType from "../controller/reqType.js"
 
 import modalController from "./modals/modalController.js"
 
-const idDelete = "#modal-delete"
-const idEdit = "#modal-edit"
+import { idEdit, idDelete } from "./getIdModals.js"
 
 const controllerDelete = (event) => {
     modalController(idDelete)

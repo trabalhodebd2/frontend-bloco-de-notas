@@ -13,7 +13,8 @@ import modalController, {
 import createElementNotepad from "./createElementNotepad.js"
 import remapEvents from "./remapEvents.js"
 
-const idEdit = "#modal-edit"
+import { idEdit } from "./getIdModals.js"
+
 
 const controllerEdit = async (title, content) => {
     lastNotepad.setTitleAndContent(title, content)

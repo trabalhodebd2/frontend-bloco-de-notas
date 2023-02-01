@@ -14,8 +14,7 @@ import {
     searchNotepads
 } from "./crud.js"
 
-const idDelete = "#modal-delete"
-const idEdit = "#modal-edit"
+import { idEdit, idDelete } from "./services/getIdModals.js"
 
 // Contoler ao apertar no botão de submeter formulario
 
