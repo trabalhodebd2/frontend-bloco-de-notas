@@ -11,7 +11,6 @@ import {
 
 import {
     createElementNotepad,
-    isStringEmpty,
     modalController
 } from "./functions.js"
 
@@ -61,15 +60,11 @@ const controllFormEdit = async () => {
     modalController(idEdit)
     
     if (reqType.get() === "PATCH") {
-        if (isStringEmpty(title) === true && isStringEmpty(content) === true) 
-            return null
-        
         lastNotepad.setTitleAndContent(title, content)
 
         await updateNotepad(lastNotepad.getId(), {title, content})
     } else if (reqType.get() === "POST") {
         const notepad = await createNotepad(title, content)
-        console.log(notepad)
 
         const elementContent = createElementNotepad(
             notepad._id, notepad.title, notepad.content
@@ -107,7 +102,6 @@ document.querySelector(idEdit).addEventListener("submit", event => {
     controllFormEdit()
 
     clearSearch()
-    init(true)
 })
 
 document.querySelector(idDelete).addEventListener("submit", event => {

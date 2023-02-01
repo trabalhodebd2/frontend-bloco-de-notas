@@ -1,7 +1,3 @@
-const isStringEmpty = (content) => {
-    return content.trim().length === 0;
-}
-
 const createElementNotepad = (id, title = '', content = '') => {
     const element = `
         <article id=${id} class="bg-primary p-9 w-full rounded-lg shadow-common
@@ -43,4 +39,4 @@ const modalController = (id, title = "", content = "") => {
     document.querySelector("#editContent").value = content
 }
 
-export { createElementNotepad, isStringEmpty, modalController }
+export { createElementNotepad, modalController }
