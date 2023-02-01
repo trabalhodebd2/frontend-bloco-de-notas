@@ -1,4 +1,5 @@
 import lastNotepad from "./controller/lastNotepad.js"
+import reqType from "./controller/reqType.js"
 
 import {
     getAllNotepads,
@@ -16,8 +17,6 @@ import {
 
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
-
-let reqType
 
 // Controller do ultimo bloco de notas usado
 
@@ -37,7 +36,7 @@ const remapEvents = () => {
     
     const controllerEdit = (event) => {
         lastNotepad.updateElementNotepad(event.target)    
-        reqType = "PATCH"
+        reqType.set("PATCH")
 
         const { title, content } = lastNotepad.getTitleAndContent()
         modalController(idEdit, title, content)
@@ -61,14 +60,14 @@ const controllFormEdit = async () => {
 
     modalController(idEdit)
     
-    if (reqType === "PATCH") {
+    if (reqType.get() === "PATCH") {
         if (isStringEmpty(title) === true && isStringEmpty(content) === true) 
             return null
         
         lastNotepad.setTitleAndContent(title, content)
 
         await updateNotepad(lastNotepad.getId(), {title, content})
-    } else if (reqType === "POST") {
+    } else if (reqType.get() === "POST") {
         const notepad = await createNotepad(title, content)
         console.log(notepad)
 
@@ -125,7 +124,7 @@ document.querySelector(idDelete).addEventListener("submit", event => {
 
 document.querySelector("#create-notepad").addEventListener("click", event => {
     modalController(idEdit)
-    reqType = "POST"
+    reqType.set("POST")
 })
 
 // Evento ao Pesquisar
