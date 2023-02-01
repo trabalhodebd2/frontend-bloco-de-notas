@@ -1,6 +1,13 @@
 import lastNotepad from "./controller/lastNotepad.js"
 import reqType from "./controller/reqType.js"
 
+import createElementNotepad from "./services/createElementNotepad.js"
+import remapEvents from "./services/remapEvents.js"
+
+import modalController, {
+    getTitleAndContentModal
+} from "./services/modalController.js"
+
 import {
     getAllNotepads,
     createNotepad,
@@ -9,48 +16,8 @@ import {
     searchNotepads
 } from "./crud.js"
 
-import {
-    createElementNotepad,
-    modalController
-} from "./functions.js"
-
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
-
-// Controller do ultimo bloco de notas usado
-
-const getTitleAndContentModal = () => {
-    const title = document.querySelector("#editTitle").value
-    const content = document.querySelector("#editContent").value
-    return { title, content }
-}
-
-// Remapear eventos das imgs de edit e delet
-
-const remapEvents = () => {
-    const controllerDelete = (event) => {
-        modalController(idDelete)
-        lastNotepad.updateElementNotepad(event.target)
-    }
-    
-    const controllerEdit = (event) => {
-        lastNotepad.updateElementNotepad(event.target)    
-        reqType.set("PATCH")
-
-        const { title, content } = lastNotepad.getTitleAndContent()
-        modalController(idEdit, title, content)
-    }
-    
-    const imgsDelete = document.querySelectorAll(".delete")
-    imgsDelete.forEach(img => {
-        img.addEventListener("click", controllerDelete)
-    })
-
-    const imgsEdit = document.querySelectorAll(".edit")
-    imgsEdit.forEach(img => {
-        img.addEventListener("click", controllerEdit)
-    })
-}
 
 // Controller de submeter formularios
 

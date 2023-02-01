@@ -27,16 +27,4 @@ const createElementNotepad = (id, title = '', content = '') => {
     return element
 }
 
-const modalController = (id, title = "", content = "") => {
-    const modal = document.querySelector(id)
-    modal.classList.toggle("hidden")
-    modal.classList.toggle("opacity-0")
-
-    const body = document.querySelector("body")
-    body.classList.toggle("overflow-hidden")
-
-    document.querySelector("#editTitle").value = title
-    document.querySelector("#editContent").value = content
-}
-
-export { createElementNotepad, modalController }
+export default createElementNotepad
