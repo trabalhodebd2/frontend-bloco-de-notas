@@ -4,9 +4,10 @@ import reqType from "./controller/reqType.js"
 import createElementNotepad from "./services/createElementNotepad.js"
 import remapEvents from "./services/remapEvents.js"
 
+import reloadCancelModal from "./services/modals/reloadCancelModal.js"
 import modalController, {
     getTitleAndContentModal
-} from "./services/modalController.js"
+} from "./services/modals/modalController.js"
 
 import {
     getAllNotepads,
@@ -44,23 +45,6 @@ const controllFormEdit = async () => {
     }
 }
 
-// Contoler de eventos para fechar modal
-
-const listIdModal = [idEdit, idDelete]
-
-listIdModal.forEach(idModal => {
-    const modal = document.querySelector(idModal)
-    modal.addEventListener("click", event => {
-        if (event.target !== event.currentTarget) return null
-        modalController(idModal)
-    })
-})
-
-listIdModal.forEach(idModal => {
-    const modal = document.querySelector(idModal)
-    const buttonCancel = modal.querySelector(".cancel")
-    buttonCancel.addEventListener("click", () => modalController(idModal))
-})
 
 // Contoler ao apertar no botão de submeter formulario
 
@@ -125,3 +109,4 @@ const init = async (erasedCurrent = false) => {
 }
 
 init()
+reloadCancelModal()

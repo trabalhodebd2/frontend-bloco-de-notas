@@ -1,7 +1,7 @@
 import lastNotepad from "../controller/lastNotepad.js"
 import reqType from "../controller/reqType.js"
 
-import modalController from "./modalController.js"
+import modalController from "./modals/modalController.js"
 
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
