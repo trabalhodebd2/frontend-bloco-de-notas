@@ -1,6 +1,6 @@
 import modalController from "./modalController.js"
 
-import { idEdit, idDelete } from "../getIdModals.js"
+import { listIdModal } from "../getIdModals.js"
 
 const reloadCancelWhitClick = (listIdModal) => {
     listIdModal.forEach(idModal => {
@@ -21,8 +21,6 @@ const reloadCancelWhitButton = (listIdModal) => {
 }
 
 const reloadCancelModal = () => {
-    const listIdModal = [idEdit, idDelete]
-
     reloadCancelWhitClick(listIdModal)
     reloadCancelWhitButton(listIdModal)
 }

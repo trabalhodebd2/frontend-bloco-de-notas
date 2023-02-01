@@ -1,4 +1,6 @@
 const idDelete = "#modal-delete"
 const idEdit = "#modal-edit"
 
-export { idDelete, idEdit }
+const listIdModal = [idEdit, idDelete]
+
+export { idDelete, idEdit, listIdModal }

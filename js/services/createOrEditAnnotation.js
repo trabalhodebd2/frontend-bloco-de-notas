@@ -15,7 +15,6 @@ import remapEvents from "./remapEvents.js"
 
 import { idEdit } from "./getIdModals.js"
 
-
 const controllerEdit = async (title, content) => {
     lastNotepad.setTitleAndContent(title, content)
     await updateNotepad(lastNotepad.getId(), {title, content})
